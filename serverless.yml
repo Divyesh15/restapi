@@ -1,0 +1,76 @@
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+
+
+service: sls1
+# app and org for use with dashboard.serverless.com
+# app: sls1-app
+# org: divyeshprajapati100
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: python3.8
+
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /here
+          method: get
+        
+  hello_post:
+    handler: handler.hello_post
+    events:
+      - http:
+          path: /here/{num1}
+          method: post      
+
+  get_all:
+    handler: handler.get_all
+    events:
+      - http:
+          path: user/all
+          method: get
+
+  get_one:
+    handler: handler.get_one
+    events:
+      - http:
+          path: /user/{u_name}
+          method: get
+
+  
+  add_record:
+    handler: handler.add_record
+    events:
+      - http:
+          path: /user/add
+          method: post
+
+  
+  modify:
+    handler: handler.modify
+    events:
+      - http:
+          path: /user/modify
+          method: put
+
+  
+  delete:
+    handler: handler.delete
+    events:
+      - http:
+          path: /user/delete/{u_id}
+          method: delete
+    
+
+  
+
