@@ -1,0 +1,10 @@
+{
+  "REGION": "us-east-1",
+  "VPC1": "subnet-a5100c8b",
+  "VPC2": "subnet-d44d5f88",
+  "VPC3": "subnet-462c0978",
+  "VPC4": "subnet-80fee8e7",
+  "VPC5": "subnet-237ab22d",
+  "VPC6": "subnet-3dc36270",
+  "SG": "sg-882408de"
+}

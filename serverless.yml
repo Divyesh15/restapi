@@ -1,76 +1,91 @@
-
 plugins:
-  - serverless-offline
   - serverless-python-requirements
+  - serverless-offline
+custom:
+  pythonRequirements:
+    fileName: requirements.txt
+    dockerizePip: true
 
-
-service: sls1
-# app and org for use with dashboard.serverless.com
-# app: sls1-app
-# org: divyeshprajapati100
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
-
+service: student-service
 provider:
   name: aws
   runtime: python3.8
+  description:  demo service fot student
+  memorySize: 128
+  timeout: 30
+  region: ${file(./config.json):REGION}
+  stage: ${opt:stage,'dev'}
 
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
 
 functions:
-  hello:
-    handler: handler.hello
+  get_student:
+    handler: application.handlers.get_student
+    vpc:
+      securityGroupIds:
+        - ${file(./config.json):SG}
+      subnetIds:
+        - ${file(./config.json):VPC1}
+        - ${file(./config.json):VPC2}
+        - ${file(./config.json):VPC3}
+        - ${file(./config.json):VPC4}
+        - ${file(./config.json):VPC5}
+        - ${file(./config.json):VPC6}
     events:
       - http:
-          path: /here
-          method: get
-        
-  hello_post:
-    handler: handler.hello_post
-    events:
-      - http:
-          path: /here/{num1}
-          method: post      
-
-  get_all:
-    handler: handler.get_all
-    events:
-      - http:
-          path: user/all
+          path: student
           method: get
 
-  get_one:
-    handler: handler.get_one
+  add_student:
+    handler: application.handlers.add_student
+    vpc:
+      securityGroupIds:
+        - ${file(./config.json):SG}
+      subnetIds:
+        - ${file(./config.json):VPC1}
+        - ${file(./config.json):VPC2}
+        - ${file(./config.json):VPC3}
+        - ${file(./config.json):VPC4}
+        - ${file(./config.json):VPC5}
+        - ${file(./config.json):VPC6}
     events:
       - http:
-          path: /user/{u_name}
-          method: get
-
-  
-  add_record:
-    handler: handler.add_record
-    events:
-      - http:
-          path: /user/add
+          path: student/add
           method: post
 
-  
-  modify:
-    handler: handler.modify
+  delete_student:
+    handler: application.handlers.delete_student
+    vpc:
+      securityGroupIds:
+        - ${file(./config.json):SG}
+      subnetIds:
+        - ${file(./config.json):VPC1}
+        - ${file(./config.json):VPC2}
+        - ${file(./config.json):VPC3}
+        - ${file(./config.json):VPC4}
+        - ${file(./config.json):VPC5}
+        - ${file(./config.json):VPC6}
     events:
       - http:
-          path: /user/modify
-          method: put
-
-  
-  delete:
-    handler: handler.delete
-    events:
-      - http:
-          path: /user/delete/{u_id}
+          path: student/delete/{roll_no}
           method: delete
-    
 
-  
-
+  edit_student:
+    handler: application.handlers.edit_student
+    vpc:
+      securityGroupIds:
+        - ${file(./config.json):SG}
+      subnetIds:
+        - ${file(./config.json):VPC1}
+        - ${file(./config.json):VPC2}
+        - ${file(./config.json):VPC3}
+        - ${file(./config.json):VPC4}
+        - ${file(./config.json):VPC5}
+        - ${file(./config.json):VPC6}
+    events:
+      - http:
+          path: student/edit
+          method: put          

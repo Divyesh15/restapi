@@ -1,0 +1,9 @@
+{
+  "name": "ssl-demo",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "serverless-offline": "^6.4.0",
+    "serverless-python-requirements": "^5.1.0"
+  }
+}
